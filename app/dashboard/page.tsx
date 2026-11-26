@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface JobItem {
   id: string;
@@ -15,7 +16,7 @@ interface JobItem {
   labor_cost?: number;
 }
 
-export default function EnterpriseDashboard() {
+export default function EnterpriseDashboardWithNav() {
   const [jobs, setJobs] = useState<JobItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [userEmail, setUserEmail] = useState<string | null>(null);
@@ -139,19 +140,26 @@ export default function EnterpriseDashboard() {
   return (
     <main style={{ padding: '40px', fontFamily: '-apple-system, sans-serif', maxWidth: '850px', margin: '0 auto', backgroundColor: '#F8FAFC', minHeight: '100vh' }}>
       
-      {/* Header */}
+      {/* Header with Navigation to Portfolio & Bank Payouts */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', borderBottom: '1px solid #E2E8F0', paddingBottom: '16px' }}>
         <div>
           <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', fontSize: '11px', fontWeight: 'bold', padding: '4px 8px', borderRadius: '4px' }}>
-            Thola Real-Time WebSocket Engine 🟢
+            Thola Provider Node 🟢
           </span>
-          <h1 style={{ color: '#0F172A', margin: '8px 0 0 0', fontSize: '24px', fontWeight: 'bold' }}>Provider Financial Dashboard</h1>
+          <h1 style={{ color: '#0F172A', margin: '8px 0 0 0', fontSize: '24px', fontWeight: 'bold' }}>Financial & Job Dashboard</h1>
         </div>
-        <div style={{ textAlign: 'right' }}>
-          <p style={{ fontSize: '12px', color: '#64748B', margin: '0 0 4px 0' }}>{userEmail}</p>
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          {/* Portfolio Management Button */}
+          <Link href="/dashboard/portfolio" style={{ fontSize: '12px', backgroundColor: '#2563EB', color: '#FFF', textDecoration: 'none', fontWeight: 'bold', padding: '8px 12px', borderRadius: '6px' }}>
+            📸 Manage Work Gallery
+          </Link>
+          {/* Bank Payout Settings Button */}
+          <Link href="/dashboard/bank" style={{ fontSize: '12px', backgroundColor: '#16A34A', color: '#FFF', textDecoration: 'none', fontWeight: 'bold', padding: '8px 12px', borderRadius: '6px' }}>
+            🏦 Bank Payouts
+          </Link>
           <button 
             onClick={handleLogout}
-            style={{ fontSize: '12px', color: '#DC2626', background: 'none', border: '1px solid #FCA5A5', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+            style={{ fontSize: '12px', color: '#DC2626', background: 'none', border: '1px solid #FCA5A5', padding: '7px 10px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}
           >
             Sign Out
           </button>
